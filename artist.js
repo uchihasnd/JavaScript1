@@ -66,14 +66,14 @@ function sortingSongs(album) {
 
     console.log(`${song.name} - ${minutes}m ${seconds}s`);
   }
+
+  console.log("=============================================");
 };
 
 
 //Result in console
 sortingSongs(album);
 
-console.log("=============================================");
 sortingSongs(album2);
 
-console.log("=============================================");
 sortingSongs(album3);
