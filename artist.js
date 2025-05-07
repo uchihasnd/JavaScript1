@@ -57,6 +57,8 @@ const album3 = {
 function sortingSongs(album) {
   album.songs.sort(( a, b) => a.duration - b.duration);
 
+  console.log(album.artist);
+
   for (let i = 0; i < album.songs.length; i++) {
     const song = album.songs[i];
     const minutes = Math.floor(song.duration / 60);
