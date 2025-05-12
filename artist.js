@@ -53,27 +53,77 @@ const album3 = {
   ]
 }
 
-//Function to sort and display songs
+const undefinedObject = undefined
+
+const newArtistObject = {
+  artist: "New Artist",
+  songs: []
+};
+
+const evilArtistObject = {
+  artist: "Evil Artist",
+  songs: [
+    { name: "1. First", duration: 0 },
+    { name: "2. Second", duration: 'null' },
+    { name: "3. Third", duration: 123124 },
+    { name: "4...", duration: 1 },
+    { name: "5...", duration: 2 },
+    { name: "6...", duration: 3 },
+    { name: "7...", duration: 4 },
+    { name: "8...", duration: 5 },
+    { name: "9...", duration: 6 },
+    { name: "10...", duration: 7 },
+    { name: "11...", duration: 8 },
+    { name: "12...", duration: 9 },
+  ]
+};
+
+function verifyObject(album) {
+  if (album === undefined || !Array.isArray(album.songs) || album.songs.length === 0){
+    console.log("Invalid album");
+    return false;
+  }
+  return true;
+}
+
 function sortingSongs(album) {
   album.songs.sort(( a, b) => a.duration - b.duration);
 
+  console.log("=======================");
   console.log(album.artist);
+  console.log("=======================");
+}
 
-  for (let i = 0; i < album.songs.length; i++) {
+
+function secondsConverter(album) {
+  for (let i = 0; i < 10; i++) {
     const song = album.songs[i];
     const minutes = Math.floor(song.duration / 60);
     const seconds = song.duration % 60;
+    const duration = Number(song.duration);
 
-    console.log(`${song.name} - ${minutes}m ${seconds}s`);
+    if (isNaN(duration)) {
+      console.log(`${song.name} - Invalid duration`);
+      continue;
+    }
+
+    if (minutes < 60) {
+      console.log(`${song.name} - ${minutes}m ${seconds}s`);
+    }
+    else {
+      const hours = Math.floor(minutes / 60);
+      const minutesRemaining = minutes - (hours * 60);
+      console.log(`${song.name} - ${hours}h ${minutesRemaining}m ${seconds}s`);
+    }
   }
+}
 
-  console.log("=============================================");
-};
+function executeFunctions() {
+  if (!verifyObject(album3)) {
+    return;
+  }
+  sortingSongs(album3);
+  secondsConverter(album3);
+}
 
-
-//Result in console
-sortingSongs(album);
-
-sortingSongs(album2);
-
-sortingSongs(album3);
+executeFunctions();
