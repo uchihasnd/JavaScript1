@@ -87,17 +87,19 @@ function verifyObject(album) {
 }
 
 function sortingSongs(album) {
-  album.songs.sort(( a, b) => a.duration - b.duration);
+  const top10 = album.songs.slice(0,10);
+  const sortedSongs = top10.sort(( a, b) => a.duration - b.duration);
 
   console.log("=======================");
   console.log(album.artist);
   console.log("=======================");
+  return sortedSongs;
 }
 
 
-function secondsConverter(album) {
-  for (let i = 0; i < 10; i++) {
-    const song = album.songs[i];
+function secondsConverter(songs) {
+  for (let i = 0; i < songs.length; i++) {
+    const song = songs[i];
     const minutes = Math.floor(song.duration / 60);
     const seconds = song.duration % 60;
     const duration = Number(song.duration);
@@ -119,11 +121,11 @@ function secondsConverter(album) {
 }
 
 function executeFunctions() {
-  if (!verifyObject(album3)) {
+  if (!verifyObject(album2)) {
     return;
   }
-  sortingSongs(album3);
-  secondsConverter(album3);
+  const orderedSongs = sortingSongs(album2);
+  secondsConverter(orderedSongs);
 }
 
 executeFunctions();
