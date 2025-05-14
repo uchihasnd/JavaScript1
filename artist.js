@@ -78,25 +78,29 @@ const evilArtistObject = {
   ]
 };
 
+//Function to verify if the object is valid
 function verifyObject(album) {
   if (album === undefined || !Array.isArray(album.songs) || album.songs.length === 0){
-    console.log("Invalid album");
     return false;
   }
   return true;
 }
 
+//Function to sort songs and select the top 10
 function sortingSongs(album) {
-  const top10 = album.songs.slice(0,10);
-  const sortedSongs = top10.sort(( a, b) => a.duration - b.duration);
+  const songs = album.songs.slice();
+  const sortedSongs = songs.sort(( a, b) => a.duration - b.duration);
+  const top10 = sortedSongs.slice(0,10)
 
-  console.log("=======================");
-  console.log(album.artist);
-  console.log("=======================");
-  return sortedSongs;
+  return top10;
 }
 
+//Function to show songs and their duration
+function songsInfo(songName, songDuration) {
+  console.log(`${songName} - ${songDuration}`);
+}
 
+//Function to convert seconds to minutes or hours
 function secondsConverter(songs) {
   for (let i = 0; i < songs.length; i++) {
     const song = songs[i];
@@ -105,25 +109,36 @@ function secondsConverter(songs) {
     const duration = Number(song.duration);
 
     if (isNaN(duration)) {
-      console.log(`${song.name} - Invalid duration`);
+      songsInfo(song.name, `Invalid duration`);
       continue;
     }
 
     if (minutes < 60) {
-      console.log(`${song.name} - ${minutes}m ${seconds}s`);
+      songsInfo(song.name, `${minutes}m ${seconds}s`);
     }
     else {
       const hours = Math.floor(minutes / 60);
       const minutesRemaining = minutes - (hours * 60);
-      console.log(`${song.name} - ${hours}h ${minutesRemaining}m ${seconds}s`);
+      songsInfo(song.name, `${hours}h ${minutesRemaining}m ${seconds}s`);
     }
   }
 }
 
+//Function to display the artist name
+function artistInfo(album) {
+  console.log("=======================");
+  console.log(album.artist);
+  console.log("=======================");
+}
+
+//Function to execute all functions
 function executeFunctions() {
   if (!verifyObject(album2)) {
+    console.log("Invalid album");
     return;
   }
+
+  artistInfo(album2);
   const orderedSongs = sortingSongs(album2);
   secondsConverter(orderedSongs);
 }
