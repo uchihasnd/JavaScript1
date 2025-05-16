@@ -1,5 +1,5 @@
 //Objects
-const album = {
+const album1 = {
   artist: "Radiohead",
   songs: [
     { name: "1. 15 Steps", duration: 238 },
@@ -131,6 +131,11 @@ function secondsConverter(songs) {
 
 //Function to display the artist name
 function artistAlbum(album, convertedSeconds) {
+  if (!verifyObject(album)) {
+    console.log("Invalid album");
+    return;
+  }
+
   console.log("=======================");
   console.log(album.artist);
   console.log("=======================");
@@ -142,14 +147,16 @@ function artistAlbum(album, convertedSeconds) {
 
 //Function to execute all functions
 function executeFunctions() {
-  if (!verifyObject(undefinedObject)) {
-    console.log("Invalid album");
+  const album = evilArtistObject;
+
+  if (!verifyObject(album)) {
+    artistAlbum(album, null);
     return;
   }
 
-  const orderedSongs = sortingSongs(undefinedObject);
+  const orderedSongs = sortingSongs(album);
   const convertedSeconds = secondsConverter(orderedSongs);
-  artistAlbum(undefinedObject, convertedSeconds);
+  artistAlbum(album, convertedSeconds);
 }
 
 executeFunctions();
