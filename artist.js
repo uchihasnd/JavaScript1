@@ -131,12 +131,14 @@ function secondsConverter(songs) {
 
 //Function to display the artist name
 function artistAlbum(album, convertedSeconds) {
-  if (!verifyObject(album)) {
+
+  console.log("=======================");
+  if (album === "Invalid album") {
     console.log("Invalid album");
+    console.log("=======================");
     return;
   }
 
-  console.log("=======================");
   console.log(album.artist);
   console.log("=======================");
 
@@ -150,7 +152,8 @@ function executeFunctions() {
   const album = evilArtistObject;
 
   if (!verifyObject(album)) {
-    artistAlbum(album, null);
+    const errorMessage = "Invalid album";
+    artistAlbum(errorMessage);
     return;
   }
 
