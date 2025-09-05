@@ -129,34 +129,35 @@ function secondsConverter(songs) {
   });
 }
 
-//Function to display the artist name
-function artistAlbum(album, convertedSeconds) {
-  if (!verifyObject(album)) {
-    console.log("Invalid album");
-    return;
+//Function to display the name of the artist, the songs or if the album is invalid
+  function artistAlbum(album, convertedSeconds) {
+    console.log("=======================");
+    if (album === null) {
+      console.log("Invalid album");
+      console.log("=======================");
+      return;
+    }
+
+    console.log(album.artist);
+    console.log("=======================");
+
+    convertedSeconds.forEach((song) => {
+      console.log(`${song.name} - ${song.duration}`);
+    });
   }
 
-  console.log("=======================");
-  console.log(album.artist);
-  console.log("=======================");
+  //Function to execute all functions
+  function executeFunctions() {
+    const album = undefinedObject;
 
-  convertedSeconds.forEach((song) => {
-    console.log(`${song.name} - ${song.duration}`);
-  });
-}
+    if (!verifyObject(album)) {
+      artistAlbum(null);
+      return;
+    }
 
-//Function to execute all functions
-function executeFunctions() {
-  const album = evilArtistObject;
-
-  if (!verifyObject(album)) {
-    artistAlbum(album, null);
-    return;
+    const orderedSongs = sortingSongs(album);
+    const convertedSeconds = secondsConverter(orderedSongs);
+    artistAlbum(album, convertedSeconds);
   }
-
-  const orderedSongs = sortingSongs(album);
-  const convertedSeconds = secondsConverter(orderedSongs);
-  artistAlbum(album, convertedSeconds);
-}
 
 executeFunctions();
